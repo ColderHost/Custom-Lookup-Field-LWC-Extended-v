@@ -1,0 +1,46 @@
+<template>
+  <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+    <lightning-button-icon
+      icon-name="utility:down"
+      variant="border-filled"
+      alternative-text="Show More"
+      slot="actions"
+    ></lightning-button-icon>
+    <p class="slds-p-horizontal_small">Card Body Narrow (custom component)</p>
+    <p slot="footer">Card Footer</p>
+
+    <!-- 
+        How you can use it:
+            "index" - used in for loop to get id of element (Optional)
+            "label" - label of input (Optional)
+            "s-object-api-name" - your Object Api Name (Required)
+            "fields-api-names" - if you want retrieve more than just Id of record use it but in this format ("field1,field2,field3") (Optional)
+            "onlookupupdate" - when you select any record you can invoke (Optional)
+            "filter" - SOQL filter please use below format (fieldApi = 'smth' or fieldApi = :var (AND, OR))(Optional)
+            "icon-name" - icons (Optional)
+            "placeholder" - in input (Optional)
+            "icon-size" - addition functionality you can specife the size of icons (Optional)
+
+            JS method:
+                test(event) {
+                    console.log(event.detail.selectedRecord);
+                    console.log(event.detail.index);
+                }
+            
+            Feel free to ask me any questions my email: monchakvolodya6@gmail.com
+     -->
+    <div style="margin: 15px;">
+      <c-custom-look-up-component
+        index="1"
+        label="Hello World:"
+        s-object-api-name="Contact"
+        fields-api-names="Email,Languages__c"
+        onlookupupdate={test}
+        filter="CreatedById = '0057Q0000078PTxQAM'"
+        icon-name="standard:agent_session"
+        placeholder="Here we go again..."
+        icon-size="medium"
+      ></c-custom-look-up-component>
+    </div>
+  </lightning-card>
+</template>

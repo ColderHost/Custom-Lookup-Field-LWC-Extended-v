@@ -1,0 +1,126 @@
+<template>
+  <div class="slds-form-element">
+    <!-- Input -->
+    <div class="slds-form-element">
+      <label class="slds-form-element__label" for="lookupInput">{label}</label>
+      <div
+        class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right"
+      >
+        <!-- To change with Selected element -->
+        <section class="slds-show" style="position: relative;" data-name="inputSection">
+          <!-- Left Icon -->
+          <lightning-icon
+            size="x-small"
+            class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+            icon-name="utility:search"
+          >
+          </lightning-icon>
+
+          <!-- Input -->
+          <input
+            type="search"
+            data-id="lookupInput"
+            placeholder={placeholder}
+            onkeyup={onChangeInput}
+            onblur={onBlurInput}
+            class="slds-input"
+            style="background-color: white"
+          />
+
+          <!-- Spinner -->
+          <template if:true={isLoading}>
+              <div class="loading"></div>
+          </template>
+
+          <!-- Check if input field is Empty -->
+          <template if:false={inputIsEmpty}>
+            <!-- Right Side Button -->
+            <lightning-button-icon
+              class="slds-button slds-button_icon slds-input__icon slds-input__icon_right clear_button_icon"
+              variant="bare"
+              onclick={clearInput}
+              size="small"
+              icon-name="utility:clear"
+            >
+            </lightning-button-icon>
+          </template>
+        </section>
+
+        <!-- Selected Record -->
+        <section
+          class="slds-hide"
+          style="
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #c9c9c9;
+          "
+          data-name="selectedValueInput"
+        >
+          <span class="slds-icon_container slds-combobox__input-entity-icon">
+            <lightning-icon
+              icon-name={iconName}
+              size={iconSize}
+              alternative-text="icon"
+            >
+            </lightning-icon>
+          </span>
+          <input
+            type="text"
+            id="combobox-id-1"
+            value={selectedRecord.Name}
+            class="slds-input slds-combobox__input slds-combobox__input-value"
+            readonly
+          />
+          <button
+            class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+            title="Remove selected option"
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              size="x-small"
+              alternative-text="close icon"
+              onclick={handleRemove}
+            ></lightning-icon>
+          </button>
+        </section>
+      </div>
+    </div>
+
+    <!-- List of Element Choices -->
+    <template if:true={hasRecords}>
+      <!-- Check if record was selected -->
+      <template if:false={hasSelected}>
+        <section class="records">
+          <!-- For Each loop -->
+          <template for:each={filteredData} for:item="rec">
+            <ul key={rec.Id}>
+              <li
+                tabindex="0"
+                class="element"
+                data-recid={rec.Id}
+                data-name={rec.Name}
+                onclick={selectElement}
+              >
+                <lightning-icon
+                  class="pointer_events_none"
+                  icon-name={iconName}
+                  size={iconSize}
+                  alternative-text="icon"
+                >
+                </lightning-icon>
+                <span class="selectText pointer_events_none">{rec.Name}</span>
+              </li>
+            </ul>
+          </template>
+        </section>
+      </template>
+    </template>
+
+    <!-- If Records won't find -->
+    <template if:true={notFoundRec}>
+      <section class="notFound">
+        <b>Not Found Records</b>
+      </section>
+    </template>
+  </div>
+</template>
