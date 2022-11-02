@@ -1,4 +1,4 @@
-This is my extetended version of lookup field with this component you can
+This is my extetended version of lookup field with this component you can:
  * Use Filter
  * Retrieve any object that you want
  * Retrieve additional fields Not only Id or Name
